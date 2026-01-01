@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FingerFumble - Master Touch Typing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⌨️</span>
+                    <span class="logo-text">FingerFumble</span>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" data-view="practice">Practice</button>
+                    <button class="nav-btn" data-view="lessons">Lessons</button>
+                    <button class="nav-btn" data-view="stats">Stats</button>
+                </nav>
+                <div class="header-controls">
+                    <button class="icon-btn" id="soundToggle" title="Toggle Sound">
+                        <svg class="icon sound-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                        <svg class="icon sound-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                            <line x1="23" y1="9" x2="17" y2="15"/>
+                            <line x1="17" y1="9" x2="23" y2="15"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" id="themeToggle" title="Toggle Theme">
+                        <svg class="icon theme-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon theme-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Practice View -->
+            <div class="view active" id="practiceView">
+                <!-- Stats Bar -->
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-value" id="wpm">0</div>
+                        <div class="stat-label">WPM</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="accuracy">100</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="errors">0</div>
+                        <div class="stat-label">Errors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="timer">60</div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                </div>
+
+                <!-- Timer Controls -->
+                <div class="timer-controls">
+                    <button class="timer-btn" data-time="15">15s</button>
+                    <button class="timer-btn" data-time="30">30s</button>
+                    <button class="timer-btn active" data-time="60">60s</button>
+                    <button class="timer-btn" data-time="120">120s</button>
+                </div>
+
+                <!-- Typing Area -->
+                <div class="typing-container">
+                    <div class="typing-text" id="typingText">
+                        <span class="word">Click</span> <span class="word">anywhere</span> <span class="word">to</span> <span class="word">start</span> <span class="word">typing...</span>
+                    </div>
+                    <div class="typing-input-wrapper">
+                        <input type="text" class="typing-input" id="typingInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </div>
+                </div>
+
+                <!-- Keyboard Visualization -->
+                <div class="keyboard-container" id="keyboardContainer">
+                    <div class="keyboard">
+                        <!-- Row 1 -->
+                        <div class="keyboard-row">
+                            <button class="key" data-key="`">~<br>`</button>
+                            <button class="key" data-key="1">!<br>1</button>
+                            <button class="key" data-key="2">@<br>2</button>
+                            <button class="key" data-key="3">#<br>3</button>
+                            <button class="key" data-key="4">$<br>4</button>
+                            <button class="key" data-key="5">%<br>5</button>
+                            <button class="key" data-key="6">^<br>6</button>
+                            <button class="key" data-key="7">&<br>7</button>
+                            <button class="key" data-key="8">*<br>8</button>
+                            <button class="key" data-key="9">(<br>9</button>
+                            <button class="key" data-key="0">)<br>0</button>
+                            <button class="key" data-key="-">_<br>-</button>
+                            <button class="key" data-key="=">+<br>=</button>
+                            <button class="key key-large" data-key="Backspace">Backspace</button>
+                        </div>
+                        <!-- Row 2 -->
+                        <div class="keyboard-row">
+                            <button class="key key-large" data-key="Tab">Tab</button>
+                            <button class="key" data-key="q">Q</button>
+                            <button class="key" data-key="w">W</button>
+                            <button class="key" data-key="e">E</button>
+                            <button class="key" data-key="r">R</button>
+                            <button class="key" data-key="t">T</button>
+                            <button class="key" data-key="y">Y</button>
+                            <button class="key" data-key="u">U</button>
+                            <button class="key" data-key="i">I</button>
+                            <button class="key" data-key="o">O</button>
+                            <button class="key" data-key="p">P</button>
+                            <button class="key" data-key="[">{<br>[</button>
+                            <button class="key" data-key="]">}<br>]</button>
+                            <button class="key key-large" data-key="\">|<br>\</button>
+                        </div>
+                        <!-- Row 3 (Home Row) -->
+                        <div class="keyboard-row">
+                            <button class="key key-large" data-key="CapsLock">Caps</button>
+                            <button class="key finger-left-pinky" data-key="a">A</button>
+                            <button class="key finger-left-ring" data-key="s">S</button>
+                            <button class="key finger-left-middle" data-key="d">D</button>
+                            <button class="key finger-left-index" data-key="f">F</button>
+                            <button class="key finger-left-index" data-key="g">G</button>
+                            <button class="key finger-right-index" data-key="h">H</button>
+                            <button class="key finger-right-index" data-key="j">J</button>
+                            <button class="key finger-right-middle" data-key="k">K</button>
+                            <button class="key finger-right-ring" data-key="l">L</button>
+                            <button class="key finger-right-pinky" data-key=";">:<br>;</button>
+                            <button class="key finger-right-pinky" data-key="'">"<br>'</button>
+                            <button class="key key-xlarge" data-key="Enter">Enter</button>
+                        </div>
+                        <!-- Row 4 -->
+                        <div class="keyboard-row">
+                            <button class="key key-xlarge" data-key="Shift">Shift</button>
+                            <button class="key" data-key="z">Z</button>
+                            <button class="key" data-key="x">X</button>
+                            <button class="key" data-key="c">C</button>
+                            <button class="key" data-key="v">V</button>
+                            <button class="key" data-key="b">B</button>
+                            <button class="key" data-key="n">N</button>
+                            <button class="key" data-key="m">M</button>
+                            <button class="key" data-key=",">&lt;<br>,</button>
+                            <button class="key" data-key=".">&gt;<br>.</button>
+                            <button class="key" data-key="/">?<br>/</button>
+                            <button class="key key-xlarge" data-key="Shift">Shift</button>
+                        </div>
+                        <!-- Row 5 -->
+                        <div class="keyboard-row">
+                            <button class="key key-space" data-key=" ">Space</button>
+                        </div>
+                    </div>
+                    <div class="finger-guide">
+                        <div class="finger-info">
+                            <span class="finger-color finger-left-pinky"></span> Left Pinky
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-left-ring"></span> Left Ring
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-left-middle"></span> Left Middle
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-left-index"></span> Left Index
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-right-index"></span> Right Index
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-right-middle"></span> Right Middle
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-right-ring"></span> Right Ring
+                        </div>
+                        <div class="finger-info">
+                            <span class="finger-color finger-right-pinky"></span> Right Pinky
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="controls">
+                    <button class="btn btn-primary" id="resetBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lessons View -->
+            <div class="view" id="lessonsView">
+                <h2 class="section-title">Typing Lessons</h2>
+                <div class="lessons-grid">
+                    <!-- Beginner Lessons -->
+                    <div class="lesson-category">
+                        <h3 class="category-title">
+                            <span class="level-badge beginner">Beginner</span>
+                            Getting Started
+                        </h3>
+                        <div class="lesson-list" id="beginnerLessons">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                    
+                    <!-- Intermediate Lessons -->
+                    <div class="lesson-category">
+                        <h3 class="category-title">
+                            <span class="level-badge intermediate">Intermediate</span>
+                            Building Skills
+                        </h3>
+                        <div class="lesson-list" id="intermediateLessons">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Lessons -->
+                    <div class="lesson-category">
+                        <h3 class="category-title">
+                            <span class="level-badge advanced">Advanced</span>
+                            Master Level
+                        </h3>
+                        <div class="lesson-list" id="advancedLessons">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats View -->
+            <div class="view" id="statsView">
+                <h2 class="section-title">Your Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="stats-card-header">
+                            <h3>Personal Best</h3>
+                        </div>
+                        <div class="stats-card-body">
+                            <div class="big-stat" id="bestWPM">0</div>
+                            <div class="stat-label">WPM</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-card-header">
+                            <h3>Average Accuracy</h3>
+                        </div>
+                        <div class="stats-card-body">
+                            <div class="big-stat" id="avgAccuracy">0</div>
+                            <div class="stat-label">%</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-card-header">
+                            <h3>Tests Completed</h3>
+                        </div>
+                        <div class="stats-card-body">
+                            <div class="big-stat" id="testsCompleted">0</div>
+                            <div class="stat-label">Tests</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-card-header">
+                            <h3>Total Time Practiced</h3>
+                        </div>
+                        <div class="stats-card-body">
+                            <div class="big-stat" id="totalTime">0</div>
+                            <div class="stat-label">Minutes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-history">
+                    <h3>Recent Tests</h3>
+                    <div class="history-list" id="historyList">
+                        <p class="empty-state">No tests completed yet. Start practicing to see your progress!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h2>Test Complete! 🎉</h2>
+            <div class="result-stats">
+                <div class="result-stat">
+                    <div class="result-value" id="resultWPM">0</div>
+                    <div class="result-label">WPM</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-value" id="resultAccuracy">0</div>
+                    <div class="result-label">Accuracy</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-value" id="resultErrors">0</div>
+                    <div class="result-label">Errors</div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
+                <button class="btn btn-secondary" id="closeModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lessons.js"></script>
+    <script src="stats.js"></script>
+    <script src="keyboard.js"></script>
+    <script src="typing-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
