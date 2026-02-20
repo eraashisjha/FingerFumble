@@ -4,7 +4,7 @@ A professional, feature-rich touch typing practice application built with vanill
 
 ## 🎯 Features
 
-### Core Functionality
+### Core FunctionalitY
 - **Real-time Typing Practice** - Practice typing with live character highlighting
   - Green for correct characters
   - Red for incorrect characters
